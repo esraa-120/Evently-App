@@ -36,6 +36,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/clock_icn.svg
   SvgGenImage get clockIcn => const SvgGenImage('assets/icons/clock_icn.svg');
 
+  /// File path: assets/icons/delete_icn.svg
+  SvgGenImage get deleteIcn => const SvgGenImage('assets/icons/delete_icn.svg');
+
+  /// File path: assets/icons/edit_icn.svg
+  SvgGenImage get editIcn => const SvgGenImage('assets/icons/edit_icn.svg');
+
   /// File path: assets/icons/lock_icn.svg
   SvgGenImage get lockIcn => const SvgGenImage('assets/icons/lock_icn.svg');
 
@@ -66,6 +72,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/sun_icn.svg
   SvgGenImage get sunIcn => const SvgGenImage('assets/icons/sun_icn.svg');
 
+  /// File path: assets/icons/time_icn.svg
+  SvgGenImage get timeIcn => const SvgGenImage('assets/icons/time_icn.svg');
+
   /// File path: assets/icons/unselect_heart_icn.svg
   SvgGenImage get unselectHeartIcn =>
       const SvgGenImage('assets/icons/unselect_heart_icn.svg');
@@ -92,6 +101,8 @@ class $AssetsIconsGen {
     arrowRightIcn,
     calendarIcn,
     clockIcn,
+    deleteIcn,
+    editIcn,
     lockIcn,
     logoutIcn,
     moonIcn,
@@ -101,6 +112,7 @@ class $AssetsIconsGen {
     selectUserIcn,
     smsIcn,
     sunIcn,
+    timeIcn,
     unselectHeartIcn,
     unselectHomeIcn,
     unselectUserIcn,
@@ -198,8 +210,12 @@ class $AssetsImagesGen {
 }
 
 abstract final class Assets {
+  static const String aEnv = '.env';
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

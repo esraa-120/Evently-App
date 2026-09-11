@@ -1,5 +1,7 @@
 import 'package:evently_app/core/services/snack_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
@@ -57,10 +59,10 @@ class FirebaseAuthService {
   }
 
   static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
-  static Future<UserCredential> signInWithGoogle() async{
+  static Future<UserCredential?> signInWithGoogle() async{
+    try{
     await _googleSignIn.initialize(
-      serverClientId:
-      "745364143027-s87lpi4aa4k1s433389o6raaaccurrg2.apps.googleusercontent.com",
+      serverClientId: dotenv.env['CLIENT_SERVER_ID'],
     );
     final GoogleSignInAccount result = await _googleSignIn.authenticate();
     final googleAuth = result.authentication;
@@ -68,6 +70,22 @@ class FirebaseAuthService {
       idToken: googleAuth.idToken,
     );
     return await FirebaseAuth.instance.signInWithCredential(credentials);
+  }
+  catch(e){
+      print("Google login failed $e");
+      return null;
+    }
+  }
+
+  static Future<void> loginWithGoogle (BuildContext context) async {
+    try {
+      await signInWithGoogle();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Login successfully")));
+      Navigator.of(context).pushReplacementNamed('/layout');
+    }catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Failed $e")));
+    }
   }
 }
 

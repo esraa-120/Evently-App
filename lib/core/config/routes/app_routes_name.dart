@@ -7,4 +7,5 @@ abstract class AppRoutesName {
   static const String layout = "/layout";
   static const String addEvent = "/add_event";
   static const String eventDetails = "/event_details";
+  static const String editEvent = "/edit_event";
 }

@@ -60,9 +60,21 @@ abstract class FirebaseCloudStoreService {
 
   static Future<bool> updateEvent(EventData eventData) async {
     try {
+      if(eventData.eventId == null) return false;
       await _getCollectionRef().doc(eventData.eventId).update(eventData.toFireStore());
       return Future.value(true);
     } catch (error) {
+      return Future.value(false);
+    }
+  }
+
+  static Future<bool> deleteEvent(String eventId) async {
+    try{
+    var collectionRef = _getCollectionRef();
+    var docRef = collectionRef.doc(eventId);
+    await docRef.delete();
+    return Future.value(true);
+  }catch(e){
       return Future.value(false);
     }
   }

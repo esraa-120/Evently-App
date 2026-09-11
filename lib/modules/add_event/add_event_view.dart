@@ -8,7 +8,8 @@ import 'package:evently_app/core/widgets/arrow_back_widget.dart';
 import 'package:evently_app/data_source/category_data.dart';
 import 'package:evently_app/main.dart';
 import 'package:evently_app/models/event_data.dart';
-import 'package:evently_app/modules/add_event/widgets/select_event_data_widget.dart';
+import 'package:evently_app/modules/add_event/widgets/select_event_date_widget.dart';
+import 'package:evently_app/modules/add_event/widgets/select_event_time_widget.dart';
 import 'package:evently_app/modules/layout/home/widgets/category_tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -127,15 +128,20 @@ class _AddEventViewState extends State<AddEventView> {
                     ),
                   ],
                 ).paddingSymmetric(horizontal: 16),
-                SelectEventDataWidget(
+                SelectEventDateWidget(
                   selectedDateTime: selectedDateTime,
                   onPressed: () {
                     _showDatePicker(context);
                   }
                 ),
-                // SizedBox(height: 120,)
+                SelectEventTimeWidget(
+                  selectedDateTime: selectedDateTime,
+                  onPressed: () {
+                    _showTimePicker(context);
+                  }
+                )
               ],
-                      ),
+              ),
             ),
           ),
           Positioned(
@@ -148,6 +154,7 @@ class _AddEventViewState extends State<AddEventView> {
                 if(_formKey.currentState!.validate()) {
                   final data = EventData(
                     categoryId: CategoryList.categories[selectedTabIndex].id,
+                    categoryImage: CategoryList.categories[selectedTabIndex].imagePath,
                     title: _titleController.text,
                     description: _descriptionController.text,
                     selectedDateTime: selectedDateTime!,
@@ -196,5 +203,28 @@ class _AddEventViewState extends State<AddEventView> {
       lastDate: DateTime.now().add(Duration(days: 365)),
     );
     setState(() {});
+  }
+  
+  Future<void> _showTimePicker(BuildContext context) async {
+    final time = await showTimePicker(
+      context: context,
+      initialTime: selectedDateTime != null
+          ? TimeOfDay.fromDateTime(selectedDateTime!)
+          : TimeOfDay.now(),
+    );
+
+    if (time != null) {
+      setState(() {
+        final date = selectedDateTime ?? DateTime.now();
+
+        selectedDateTime = DateTime(
+          date.year,
+          date.month,
+          date.day,
+          time.hour,
+          time.minute,
+        );
+      });
+    }
   }
 }

@@ -4,11 +4,11 @@ import 'package:evently_app/core/config/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class SelectEventDataWidget extends StatelessWidget {
+class SelectEventDateWidget extends StatelessWidget {
 
   final DateTime? selectedDateTime;
   final void Function()? onPressed;
-  const SelectEventDataWidget({super.key, this.onPressed, this.selectedDateTime});
+  const SelectEventDateWidget({super.key, this.onPressed, this.selectedDateTime});
 
   @override
   Widget build(BuildContext context) {

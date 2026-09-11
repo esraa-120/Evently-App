@@ -176,24 +176,28 @@ class _LoginViewState extends State<LoginView> {
                       titleColor: theme.primaryColor,
                       icon: Assets.images.googleImg.image(),
 
-                      onTap: () async {
-                        EasyLoading.show();
+                      onTap: () {
+                          FirebaseAuthService.loginWithGoogle(context);
+                      }
 
-                        try {
-                          final value = await FirebaseAuthService.signInWithGoogle();
-
-                          if (!mounted) return;
-
-                          if (value.user != null) {
-                            navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                              AppRoutesName.layout,
-                                  (route) => false,
-                            );
-                          }
-                        } finally {
-                          EasyLoading.dismiss();
-                        }
-                      },
+                      // onTap: () async {
+                      //   EasyLoading.show();
+                      //
+                      //   try {
+                      //     final value = await FirebaseAuthService.signInWithGoogle();
+                      //
+                      //     if (!mounted) return;
+                      //
+                      //     if (value != null) {
+                      //       navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                      //         AppRoutesName.layout,
+                      //             (route) => false,
+                      //       );
+                      //     }
+                      //   } finally {
+                      //     EasyLoading.dismiss();
+                      //   }
+                      // },
                       ),
                   ],
             ),

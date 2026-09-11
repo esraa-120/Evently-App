@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'core/config/routes/app_route_manager.dart';
@@ -20,6 +21,7 @@ void main() async {
  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+ await dotenv.load( fileName: ".env");
 
   runApp (ChangeNotifierProvider(
       create: (context) => SettingsConfig(),
